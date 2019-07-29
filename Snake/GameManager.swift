@@ -12,6 +12,7 @@ class GameManager {
     var scene: GameScene!
     var nextTime: Double?
     var timeExtension: Double = 1
+    var playerDirection: Int = 1
     
 
     init(scene: GameScene) {
@@ -33,9 +34,52 @@ class GameManager {
         } else {
             if time >= nextTime! {
                 nextTime = time + timeExtension
-                print(time)
+                updatePlayerPosition()
             }
         }
+    }
+    private func updatePlayerPosition() {
+        var xChange = -1
+        var yChange = 0
+        switch playerDirection {
+        case 1:
+            //left
+            xChange = -1
+            yChange = 0
+            break
+        case 2:
+            //up
+            xChange = 0
+            yChange = -1
+            break
+        case 3:
+            //right
+            xChange = 1
+            yChange = 0
+            break
+        case 4:
+            //down
+            xChange = 0
+            yChange = 1
+            break
+        default:
+            break
+            
+        }
+    
+    
+
+        //6
+        if scene.playerPositions.count > 0 {
+            var start = scene.playerPositions.count - 1
+            while start > 0 {
+                scene.playerPositions[start] = scene.playerPositions[start - 1]
+                start -= 1
+            }
+            scene.playerPositions[0] = (scene.playerPositions[0].0 + yChange, scene.playerPositions[0].1 + xChange)
+        }
+        //7
+        renderChange()
     }
 
     
