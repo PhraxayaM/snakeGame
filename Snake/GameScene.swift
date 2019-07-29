@@ -32,9 +32,7 @@ class GameScene: SKScene {
         
         //2
         initializeMenu()
-        
         game = GameManager(scene: self)
-        
         initializeGameView()
         }
     
@@ -64,13 +62,13 @@ class GameScene: SKScene {
         bestScore.run(SKAction.move(to:bottomCorner, duration: 0.4))
         bestScore.run(SKAction.move(to:bottomCorner, duration: 0.4))
         
-        self.gameBG.setScale(0)
-        self.currentScore.setScale(0)
-        self.gameBG.isHidden = false
-        self.currentScore.isHidden = false
-        self.gameBG.run(SKAction.scale(to: 1, duration: 0.4))
-        self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
-       
+            self.gameBG.setScale(0)
+            self.currentScore.setScale(0)
+            self.gameBG.isHidden = false
+            self.currentScore.isHidden = false
+            self.gameBG.run(SKAction.scale(to: 1, duration: 0.4))
+            self.currentScore.run(SKAction.scale(to: 1, duration: 0.4))
+            self.game.initGame()
     
         }
 
