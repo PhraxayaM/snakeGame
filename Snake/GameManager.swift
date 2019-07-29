@@ -10,6 +10,10 @@ import SpriteKit
 
 class GameManager {
     var scene: GameScene!
+    var nextTime: Double?
+    var timeExtension: Double = 1
+    
+
     init(scene: GameScene) {
     self.scene = scene
     }
@@ -22,6 +26,18 @@ class GameManager {
         renderChange()
         
     }
+    
+    func update(time: Double) {
+        if nextTime == nil {
+            nextTime = time + timeExtension
+        } else {
+            if time >= nextTime! {
+                nextTime = time + timeExtension
+                print(time)
+            }
+        }
+    }
+
     
     func renderChange() {
         for (node, x, y) in scene.gameArray {

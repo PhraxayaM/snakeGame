@@ -36,6 +36,11 @@ class GameScene: SKScene {
         initializeGameView()
         }
     
+    override func update(_ currentTime: TimeInterval) {
+        game.update(time: currentTime)
+
+    }
+    
     //3
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
