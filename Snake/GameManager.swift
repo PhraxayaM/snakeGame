@@ -11,8 +11,8 @@ import SpriteKit
 class GameManager {
     var scene: GameScene!
     var nextTime: Double?
-    var timeExtension: Double = 1
-    var playerDirection: Int = 1
+    var timeExtension: Double = 0.15
+    var playerDirection: Int = 2
     
 
     init(scene: GameScene) {
@@ -66,10 +66,7 @@ class GameManager {
             break
             
         }
-    
-    
 
-        //6
         if scene.playerPositions.count > 0 {
             var start = scene.playerPositions.count - 1
             while start > 0 {
@@ -78,7 +75,20 @@ class GameManager {
             }
             scene.playerPositions[0] = (scene.playerPositions[0].0 + yChange, scene.playerPositions[0].1 + xChange)
         }
-        //7
+        if scene.playerPositions.count > 0 {
+            let x = scene.playerPositions[0].1
+            let y = scene.playerPositions[0].0
+            if y > 40 {
+                scene.playerPositions[0].0 = 0
+            } else if y < 0 {
+                scene.playerPositions[0].0 = 40
+            } else if x > 20 {
+                scene.playerPositions[0].1 = 0
+            } else if x < 0 {
+                scene.playerPositions[0].1 = 20
+            }
+          
+        }
         renderChange()
     }
 

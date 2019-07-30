@@ -34,11 +34,41 @@ class GameScene: SKScene {
         initializeMenu()
         game = GameManager(scene: self)
         initializeGameView()
-        }
+        
+        
+        let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeR))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+        let swipeLeft:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeL))
+        swipeLeft.direction = .left
+        view.addGestureRecognizer(swipeLeft)
+        let swipeUp:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeU))
+        swipeUp.direction = .up
+        view.addGestureRecognizer(swipeUp)
+        let swipeDown:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeD))
+        swipeDown.direction = .down
+        view.addGestureRecognizer(swipeDown)
+    }
+    
+    @objc func swipeR() {
+        print("r")
+    }
+    @objc func swipeL() {
+        print("l")
+    }
+    @objc func swipeU() {
+        print("u")
+    }
+    @objc func swipeD() {
+        print("d")
+    }
+        
     
     override func update(_ currentTime: TimeInterval) {
         game.update(time: currentTime)
-
+        
+//        //1
+//        game.update(time: currentTime)
     }
     
     //3
