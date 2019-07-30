@@ -49,18 +49,18 @@ class GameScene: SKScene {
         swipeDown.direction = .down
         view.addGestureRecognizer(swipeDown)
     }
-    
+ 
     @objc func swipeR() {
-        print("r")
+        game.swipe(ID: 3)
     }
     @objc func swipeL() {
-        print("l")
+        game.swipe(ID: 1)
     }
     @objc func swipeU() {
-        print("u")
+        game.swipe(ID: 2)
     }
     @objc func swipeD() {
-        print("d")
+        game.swipe(ID: 4)
     }
         
     
