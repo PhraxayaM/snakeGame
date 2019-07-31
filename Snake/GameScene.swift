@@ -22,6 +22,7 @@ class GameScene: SKScene {
     var playerPositions: [(Int, Int)] = []
     var gameBG: SKShapeNode!
     var gameArray: [(node: SKShapeNode, x: Int, y: Int)] = []
+    var scorePos: CGPoint?
     
     
     
@@ -34,7 +35,6 @@ class GameScene: SKScene {
         initializeMenu()
         game = GameManager(scene: self)
         initializeGameView()
-        
         
         let swipeRight:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeR))
         swipeRight.direction = .right
