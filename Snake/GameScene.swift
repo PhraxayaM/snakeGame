@@ -67,8 +67,6 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         game.update(time: currentTime)
         
-//        //1
-//        game.update(time: currentTime)
     }
     
     //3
@@ -161,7 +159,7 @@ class GameScene: SKScene {
         createGameBoard(width: Int(width), height: Int(height))
         
     }
-    //create a game board, initialize array of cells
+    //create a game board, initialize array of cells. Our board is a 20x40 grid/array
     private func createGameBoard(width: Int, height: Int) {
         let cellWidth: CGFloat = 27.5
         let numRows = 40

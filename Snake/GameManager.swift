@@ -12,7 +12,8 @@ class GameManager {
     var scene: GameScene!
     var nextTime: Double?
     var timeExtension: Double = 0.15
-    var playerDirection: Int = 2
+    var playerDirection: Int = 4
+    var currentScore: Int = 0
     
 
     init(scene: GameScene) {
@@ -26,11 +27,37 @@ class GameManager {
         scene.playerPositions.append((10, 12))
         renderChange()
         generateNewPoint()
+        checkForScore()
         
     }
+    private func checkForScore() {
+        if scene.scorePos != nil {
+            let x = scene.playerPositions[0].0
+            let y = scene.playerPositions[0].1
+            if Int((scene.scorePos?.x)!) == y && Int((scene.scorePos?.y)!) == x {
+                currentScore += 1
+                scene.currentScore.text = "Score: \(currentScore)"
+                generateNewPoint()
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+
+    
+    // this creates a red square at a random location for the player to collect. Since it's a 20x40 grid/array, we set the random up to 19 for the x coordinate and 39 for the y coordinates
     private func generateNewPoint() {
-        let randomX = CGFloat(arc4random_uniform(19))
-        let randomY = CGFloat(arc4random_uniform(39))
+        var randomX = CGFloat(arc4random_uniform(19))
+        var randomY = CGFloat(arc4random_uniform(39))
+        while contains(a: scene.playerPositions, v: (Int(randomX), Int(randomY))) {
+            randomX = CGFloat(arc4random_uniform(19))
+            randomY = CGFloat(arc4random_uniform(39))
+        }
         scene.scorePos = CGPoint(x: randomX, y: randomY)
     }
 
@@ -42,6 +69,7 @@ class GameManager {
             if time >= nextTime! {
                 nextTime = time + timeExtension
                 updatePlayerPosition()
+                checkForScore()
             }
         }
     }
@@ -120,6 +148,8 @@ class GameManager {
         return false
     }
     
+    
+    // this updates the snakes movement depending on the direction the player swipes. Check gamescene under didMove method for where this is pulling the swiping information from.
     func swipe(ID: Int) {
         if !(ID == 2 && playerDirection == 4) && !(ID == 4 && playerDirection == 2) {
             if !(ID == 1 && playerDirection == 3) && !(ID == 3 && playerDirection == 1) {

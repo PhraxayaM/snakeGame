@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Snake/GameManager.swift"
-            timestampString = "586274523.208807"
+            timestampString = "586277594.148175"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "updatePlayerPosition()"
             landmarkType = "7">
          </BreakpointContent>
