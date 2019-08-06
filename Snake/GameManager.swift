@@ -28,8 +28,44 @@ class GameManager {
         renderChange()
         generateNewPoint()
         checkForScore()
+        finishAnimation()
         
     }
+    
+    private func finishAnimation() {
+        if playerDirection == 0 && scene.playerPositions.count > 0 {
+            var hasFinished = true
+            let headOfSnake = scene.playerPositions[0]
+            for position in scene.playerPositions {
+                if headOfSnake != position {
+                    hasFinished = false
+                }
+            }
+            if hasFinished {
+                print("end game")
+                playerDirection = 4
+                //animation has completed
+                scene.scorePos = nil
+                scene.playerPositions.removeAll()
+                renderChange()
+                //return to menu
+                scene.currentScore.run(SKAction.scale(to: 0, duration: 0.4)) {
+                    self.scene.currentScore.isHidden = true
+                }
+                    scene.gameBG.run(SKAction.scale(to: 0, duration: 0.4)) {
+                        self.scene.gameBG.isHidden = true
+                        self.scene.gameLogo.isHidden = false
+                        self.scene.gameLogo.run(SKAction.move(to: CGPoint(x: 0, y: (self.scene.frame.size.height / 2) - 200), duration: 0.5)) {
+                            self.scene.playButton.isHidden = false
+                            self.scene.playButton.run(SKAction.scale(to: 1, duration: 0.3))
+                            self.scene.bestScore.run(SKAction.move(to: CGPoint(x: 0, y: self.scene.gameLogo.position.y - 50), duration: 0.3))
+                        }
+                }
+            }
+        }
+    }
+    
+    // updates score and creates a new red square object when the snake touches the current red square/object that appears on the screen
     private func checkForScore() {
         if scene.scorePos != nil {
             let x = scene.playerPositions[0].0
@@ -38,18 +74,16 @@ class GameManager {
                 currentScore += 1
                 scene.currentScore.text = "Score: \(currentScore)"
                 generateNewPoint()
+                
+                //this increases the snakes length after collecting the red square object
+                scene.playerPositions.append(scene.playerPositions.last!)
+                scene.playerPositions.append(scene.playerPositions.last!)
+                scene.playerPositions.append(scene.playerPositions.last!)
             }
         }
-        
-        
     }
     
-    
-    
-    
-    
 
-    
     // this creates a red square at a random location for the player to collect. Since it's a 20x40 grid/array, we set the random up to 19 for the x coordinate and 39 for the y coordinates
     private func generateNewPoint() {
         var randomX = CGFloat(arc4random_uniform(19))
@@ -70,9 +104,23 @@ class GameManager {
                 nextTime = time + timeExtension
                 updatePlayerPosition()
                 checkForScore()
+                checkForDeath()
             }
         }
     }
+    
+    // If the head node touches any parts of the other nodes, death occurs
+    private func checkForDeath() {
+        if scene.playerPositions.count > 0 {
+            var arrayOfPositions = scene.playerPositions
+            let headOfSnake = arrayOfPositions[0]
+            arrayOfPositions.remove(at:0)
+            if contains(a: arrayOfPositions, v: headOfSnake) {
+                playerDirection = 0
+            }
+        }
+    }
+
     private func updatePlayerPosition() {
         var xChange = -1
         var yChange = 0
@@ -96,6 +144,11 @@ class GameManager {
             //down
             xChange = 0
             yChange = 1
+            break
+        case 0:
+            // death
+            xChange = 0
+            yChange = 0
             break
         default:
             break
@@ -153,7 +206,10 @@ class GameManager {
     func swipe(ID: Int) {
         if !(ID == 2 && playerDirection == 4) && !(ID == 4 && playerDirection == 2) {
             if !(ID == 1 && playerDirection == 3) && !(ID == 3 && playerDirection == 1) {
-                playerDirection = ID
+                if playerDirection != 0 {
+                    playerDirection = ID
+                }
+                
             }
         }
     }
