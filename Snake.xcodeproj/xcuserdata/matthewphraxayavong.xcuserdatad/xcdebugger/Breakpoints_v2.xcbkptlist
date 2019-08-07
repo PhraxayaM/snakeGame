@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Snake/GameManager.swift"
-            timestampString = "586826886.694073"
+            timestampString = "586887593.2264431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "GameManager"
             landmarkType = "3">
          </BreakpointContent>
